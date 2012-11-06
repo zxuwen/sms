@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  country_code: 1
+  mobile_number: MyString
+  content: MyText
+  gateway: MyString
+  status_code: 1
+
+two:
+  country_code: 1
+  mobile_number: MyString
+  content: MyText
+  gateway: MyString
+  status_code: 1
