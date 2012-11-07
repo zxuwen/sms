@@ -47,20 +47,6 @@ module Sms
     def send_via_smsbao_gateway
       Sms::SmsbaoGateway.set_account(SMSBAO_USERNAME, SMSBAO_PASSWORD)
       self.status_code = Sms::SmsbaoGateway.send_message(self.mobile_number, self.content)
-      # content = CGI::escape(self.content)
-      # url = "http://www.smsbao.com/sms?u=#{SMSBAO_USERNAME}&p=#{SMSBAO_PASSWORD}&m=#{self.mobile_number}&c=#{content}"
-
-      # callback = open(url).read
-
-      # case callback
-      # when "0" # success -> return success (success true, message success)
-      #   self.status_code = 0
-      # when "-1" # passenger mobile error -> display error (success false, message failure)
-      #   self.status_code = 1
-      # else
-      #   self.status_code = 2
-      #   # TODO raise exception and send email to administrator
-      # end
     end
 
     def send_via_nexmo_gateway
