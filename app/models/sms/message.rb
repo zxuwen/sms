@@ -38,11 +38,9 @@ module Sms
 
     protected
 
-    # require 'open-uri'
-
     # TODO: Change to parameters that can be set in Env
     SMSBAO_USERNAME = "Hopcab"
-    SMSBAO_PASSWORD = Digest::MD5.hexdigest("Wrsoq4j7lee")
+    SMSBAO_PASSWORD = "Wrsoq4j7lee"
 
     def send_via_smsbao_gateway
       Sms::SmsbaoGateway.set_account(SMSBAO_USERNAME, SMSBAO_PASSWORD)

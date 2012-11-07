@@ -14,9 +14,7 @@ module Sms
       def send_message(mobile, content)
         content = CGI::escape(content)
         url = "http://www.smsbao.com/sms?u=#{@username}&p=#{@password}&m=#{mobile}&c=#{content}"
-
         callback = open(url).read
-
         case callback
         when "0" # success -> return success (success true, message success)
           status_code = 0
