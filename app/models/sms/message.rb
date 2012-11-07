@@ -12,8 +12,7 @@ module Sms
 
     # Sends the message via the appropriate gateway
     def deliver
-      send_via_smsbao_gateway if china_mobile?
-      send_via_nexmo_gateway
+      china_mobile? ? send_via_smsbao_gateway : send_via_nexmo_gateway
     end
 
     # Delivers sms if all parameters are fulfilled
@@ -24,17 +23,17 @@ module Sms
 
     # Checks if number is from China
     def china_mobile?
-      country_code == '86'
+      country_code == 86
     end
 
     # Returns true if sms is successful
     def is_successful?
-      status_code == '0'
+      status_code == 0
     end
 
     # Returns true if sms has wrong number
     def has_wrong_number?
-      status_code == '1'
+      status_code == 1
     end
 
     protected
@@ -47,22 +46,23 @@ module Sms
 
     def send_via_smsbao_gateway
       content = CGI::escape(self.content)
-      url = "http://www.smsbao.com/sms?u=#{SMSBAO_USERNAME}&p=#{SMSBAO_PASSWORD}&m=#{self.mobile}&c=#{content}"
+      url = "http://www.smsbao.com/sms?u=#{SMSBAO_USERNAME}&p=#{SMSBAO_PASSWORD}&m=#{self.mobile_number}&c=#{content}"
 
-      # Send the message if mobile, country code and
       callback = open(url).read
 
       case callback
-        when "0" # success -> return success (success true, message success)
-          status_code = '0'
-        when "-1" # passenger mobile error -> display error (success false, message failure)
-          status_code = '1'
-        else
-          status_code = '2'
-          # TODO raise exception and send email to administrator
-        end
+      when "0" # success -> return success (success true, message success)
+        self.status_code = 0
+      when "-1" # passenger mobile error -> display error (success false, message failure)
+        self.status_code = 1
+      else
+        self.status_code = 2
+        # TODO raise exception and send email to administrator
       end
     end
 
+    def send_via_nexmo_gateway
+      puts 'nexmos'
+    end
   end
 end
