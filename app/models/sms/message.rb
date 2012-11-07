@@ -16,8 +16,10 @@ module Sms
       send_via_nexmo_gateway
     end
 
+    # Delivers sms if all parameters are fulfilled
     def deliver!
-      deliver && save
+      deliver if valid?
+      save # Returns true if save is successful, returns errors accessible through message.errors if false
     end
 
     # Checks if number is from China
@@ -60,5 +62,7 @@ module Sms
           # TODO raise exception and send email to administrator
         end
       end
+    end
+
   end
 end
