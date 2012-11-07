@@ -38,10 +38,7 @@ module Sms
 
     protected
 
-    # TODO: Change to parameters that can be set in Env
-
     def send_via_smsbao_gateway
-
       self.status_code = Sms::SmsbaoGateway.send_message(self.mobile_number, self.content)
     end
 

@@ -1,8 +1,4 @@
 require 'test_helper'
-    SMSBAO_USERNAME = "Hopcab"
-    SMSBAO_PASSWORD = "Wrsoq4j7lee"
-
-Sms::SmsbaoGateway.set_account(SMSBAO_USERNAME, SMSBAO_PASSWORD)
 
 module Sms
   class MessageTest < ActiveSupport::TestCase
