@@ -39,11 +39,9 @@ module Sms
     protected
 
     # TODO: Change to parameters that can be set in Env
-    SMSBAO_USERNAME = "Hopcab"
-    SMSBAO_PASSWORD = "Wrsoq4j7lee"
 
     def send_via_smsbao_gateway
-      Sms::SmsbaoGateway.set_account(SMSBAO_USERNAME, SMSBAO_PASSWORD)
+
       self.status_code = Sms::SmsbaoGateway.send_message(self.mobile_number, self.content)
     end
 
