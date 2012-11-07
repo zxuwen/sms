@@ -1,3 +1,14 @@
 = Sms
 
+
+This module sends users a sms via either the Nexmo gateway or Smsbao gateway.
+The Smsbao gateway is selected for China numbers and Nexmo for other numbers.
+
+Usage is as follows:
+
+sms = Sms.new(country_code, mobile_number, content)
+sms.deliver!
+
+Callbacks:
+
 This project rocks and uses MIT-LICENSE.
