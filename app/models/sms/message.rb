@@ -28,12 +28,12 @@ module Sms
 
     # Returns true if sms is successful
     def is_successful?
-      status_code == 0
+      status_code == '0'
     end
 
     # Returns true if sms has wrong number
     def has_wrong_number?
-      status_code == 1
+      status_code == '1'
     end
 
     protected
@@ -43,7 +43,8 @@ module Sms
     end
 
     def send_via_nexmo_gateway
-      puts 'nexmos'
+      full_mobile_number = [country_code, mobile_number].join()
+      self.status_code = Sms::NexmoGateway.send_message(full_mobile_number, self.content)
     end
   end
 end

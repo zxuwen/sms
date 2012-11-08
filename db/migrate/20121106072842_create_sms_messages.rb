@@ -5,7 +5,7 @@ class CreateSmsMessages < ActiveRecord::Migration
       t.string :mobile_number
       t.text :content
       t.string :gateway
-      t.integer :status_code
+      t.string :status_code
 
       t.timestamps
     end

@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20121106072842) do
     t.string   "mobile_number"
     t.text     "content"
     t.string   "gateway"
-    t.integer  "status_code"
+    t.string   "status_code"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end

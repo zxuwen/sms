@@ -1,7 +1,9 @@
 require "sms/engine"
 require 'open-uri'
+require 'nexmo'
 
 module Sms
+  # For sending of China numbers
   class SmsbaoGateway
 
     class << self
@@ -17,14 +19,47 @@ module Sms
         callback = open(url).read
         case callback
         when "0" # success -> return success (success true, message success)
-          status_code = 0
+          status_code = '0'
         when "-1" # passenger mobile error -> display error (success false, message failure)
-          status_code = 1
+          status_code = '1'
         else
-          status_code = 2
-          # TODO raise exception and send email to administrator
+          status_code = "SmsbaoGateway Error: #{callback}"
+          # TODO: Send email to administrator
         end
         return status_code
+      end
+    end
+  end
+
+  # Using Nexmo for sending of other international numbers
+  class NexmoGateway
+
+    class << self
+      def set_account(api_key, api_secret, sender)
+        @nexmo = Nexmo::Client.new(api_key, api_secret)
+        @sender = sender
+      end
+
+      def send_message(mobile, content)
+
+        response = @nexmo.send_message({
+          from: "#{@sender}",
+          to: "#{mobile}",
+          text: "#{content}"
+        })
+
+        if response.success?
+          status_code = '0'
+        elsif response.failure?
+          error_code = response.error.split('=').last # Find the cause of error
+          case error_code # When wrong number
+          when '3'
+            status_code = '1'
+          else
+            status_code = "NexmoGateway Error: #{response.error}"
+          end
+        end
+          return status_code
       end
     end
   end
