@@ -9,6 +9,4 @@ Usage is as follows:
 sms = Sms.new(country_code, mobile_number, content)
 sms.deliver!
 
-Callbacks:
-
 This project rocks and uses MIT-LICENSE.

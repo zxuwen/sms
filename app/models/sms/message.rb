@@ -31,6 +31,11 @@ module Sms
       status_code == '0'
     end
 
+    # Virtual attribute for success true/false
+    def success
+      is_successful?
+    end
+
     # Returns true if sms has wrong number
     def has_wrong_number?
       status_code == '1'
