@@ -5,14 +5,22 @@ module Sms
   # Server error or other error: status code is 2, notifier will be sent to admin
 
   class Message < ActiveRecord::Base
-    attr_accessible :content, :country_code, :gateway, :mobile_number, :status_code
+    attr_accessible :content, :gateway, :mobile_number, :status_code
 
     # Validations
-    validates_presence_of :country_code, :mobile_number, :content
+    validates_presence_of :mobile_number, :content
 
     # Sends the message via the appropriate gateway
     def deliver
       china_mobile? ? send_via_smsbao_gateway : send_via_nexmo_gateway
+    end
+
+    def country_code
+      mobile_number[0..1]
+    end
+
+    def mobile
+      mobile_number[2..-1]
     end
 
     # Delivers sms if all parameters are fulfilled
@@ -23,7 +31,7 @@ module Sms
 
     # Checks if number is from China
     def china_mobile?
-      country_code == 86
+      country_code == '86'
     end
 
     # Returns true if sms is successful
@@ -44,12 +52,11 @@ module Sms
     protected
 
     def send_via_smsbao_gateway
-      self.status_code = Sms::SmsbaoGateway.send_message(self.mobile_number, self.content)
+      self.status_code = Sms::SmsbaoGateway.send_message(mobile, content)
     end
 
     def send_via_nexmo_gateway
-      full_mobile_number = [country_code, mobile_number].join()
-      self.status_code = Sms::NexmoGateway.send_message(full_mobile_number, self.content)
+      self.status_code = Sms::NexmoGateway.send_message(mobile_number, content)
     end
   end
 end

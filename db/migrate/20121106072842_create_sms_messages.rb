@@ -1,7 +1,6 @@
 class CreateSmsMessages < ActiveRecord::Migration
   def change
     create_table :sms_messages do |t|
-      t.integer :country_code
       t.string :mobile_number
       t.text :content
       t.string :gateway

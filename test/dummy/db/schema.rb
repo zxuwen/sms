@@ -14,7 +14,6 @@
 ActiveRecord::Schema.define(:version => 20121106072842) do
 
   create_table "sms_messages", :force => true do |t|
-    t.integer  "country_code"
     t.string   "mobile_number"
     t.text     "content"
     t.string   "gateway"

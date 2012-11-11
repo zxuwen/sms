@@ -6,7 +6,8 @@ The Smsbao gateway is selected for China numbers and Nexmo for other numbers.
 
 Usage is as follows:
 
-sms = Sms.new(country_code, mobile_number, content)
+sms = Sms::Message.new(mobile_number: 'xxx', content: 'test')
 sms.deliver!
 
+Mobile number should be in the format with country code e.g. 86xxxx
 This project rocks and uses MIT-LICENSE.
